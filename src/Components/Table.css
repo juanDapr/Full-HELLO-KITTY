@@ -1,0 +1,50 @@
+.home__hero-section {
+    color: #fff;
+    padding: 160px 0;
+  }
+.table{
+    width: 100%;
+    color: #212529;
+    margin-bottom: 1rem;
+}
+table{
+    border-collapse: collapse;
+}
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+th {
+    text-align: inherit;
+    text-align: -webkit-match-parent;
+}
+.table td, .table th {
+   
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+   
+}
+.table thead tr {
+    color: #f00946
+}
+.table thead .tr-light {
+    color: #fff
+}
+.bd-title-dark {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    font-size: 3rem;
+    color:  #f00946;
+    width: 100%;
+    text-align: center;
+}
+.rosa{
+    color:  #f00946;
+}
+  @media screen and (max-width: 991px) {
+    .container {
+      padding-right: 30px;
+      padding-left: 30px;
+    }
+  }
