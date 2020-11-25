@@ -58,7 +58,7 @@ function Footer() {
         <div className='social-media-wrap'>
           <div className='footer-logo'>
             <Link to='/' className='social-logo'>
-              Hello Kytty
+              Hello Kitty
             </Link>
           </div>
           <small className='website-rights'>HK © 2020</small>

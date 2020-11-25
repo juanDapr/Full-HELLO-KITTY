@@ -6,7 +6,6 @@ export const homeObjOne = {
     headline: 'Pedidos de la Pasteleria Hello kitty',
     description:
       '',
-    buttonLabel: 'Sign Up',
     imgStart: '',
     img: 'images/svg-6.svg',
     alt: 'Credit Card'

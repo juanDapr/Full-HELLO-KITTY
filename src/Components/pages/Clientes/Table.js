@@ -1,51 +1,69 @@
-import React from 'react';
+import React, { Component } from 'react';
 import '../../Table.css';
+import firebaseConf from '../../../Firebase';
 
-function table() {
-    return (
-        <>
-            <div
-                className='home__hero-section' >
-                <div className='container'>
-                    <h1 className= 'bd-title-dark'>Clientes</h1>
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+class table extends Component{
+    constructor(){
+        super();
+        this.state={
+            clientes:[]
+        };
+        this.getClientes = this.getClientes.bind(this)
+    }
+    componentWillMount(){
+        this.getClientes();
+    }
+    getClientes(){
+       const nameRef = firebaseConf.database().ref("cliente")
+       nameRef.once("value", (snapshot) =>{
+           this.setState({
+               clientes: snapshot.val()
+           })
+           console.log(this.state)
+       })
+    }
+    render(){
+        return (
+            <React.Fragment>
+<>
+                <div
+                    className='home__hero-section' >
+                    <div className='container'>
+                        <h1 className= 'bd-title-dark'>Clientes</h1>
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tipo de Cliente</th>
+                                    <th scope="col">Tipo Documento</th>
+                                    <th scope="col">Num Documento</th>
+                                    <th scope="col">Nombre/Razón Social</th>
+                                    <th scope="col">Direccion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               {this.state.clientes.map((cliente)=>{
+                                   return(
+                                       <tr>
+                                           <td>{cliente.tipocliente}</td>
+                                           <td>{cliente.tipodoc}</td>
+                                           <td>{cliente.numdoc}</td>
+                                           <td>{cliente.nombre}</td>
+                                           <td>{cliente.direccion}</td>
+                                       </tr>
+                                   )
+                               })}
+                            </tbody>
+                        </table>
+                    </div>
+    
+    
                 </div>
-
-
-            </div>
-        </>
-
-    );
-
-
+            </>
+            </React.Fragment>
+    
+        );
+    }
+    
 }
 export default table;

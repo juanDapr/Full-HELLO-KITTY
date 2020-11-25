@@ -1,51 +1,41 @@
-import React from 'react';
+import React, { Component } from 'react';
 import '../../Table.css';
 
-function table() {
-    return (
-        <>
-            <div
-                className='home__hero-section' >
-                <div className='container'>
-                    <h1 className= 'bd-title-dark'>Pedidos</h1>
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                        </tbody>
-                    </table>
+class table extends Component {
+    render(){
+        return (
+            <>
+                <div
+                    className='home__hero-section' >
+                    <div className='container'>
+                        <h1 className= 'bd-title-dark'>Pedidos</h1>
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Código</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Peso (Kg)</th>
+                                    <th scope="col">Tipo de pastel</th>
+                                    <th scope="col">Fecha de solicitud</th>
+                                    <th scope="col">Fecha de Entrega</th>
+                                    <th scope="col">Especificaciones</th>
+                                    <th scope="col">Codigo cliente</th>
+                                    <th scope="col">Codigo empleado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+    
+    
                 </div>
-
-
-            </div>
-        </>
-
-    );
-
-
+            </>
+    
+        );
+    
+    }
+    
 }
 export default table;
