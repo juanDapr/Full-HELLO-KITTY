@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../../Registro.css';
 import { Button } from '../../Button';
 import firebaseConf from '../../../Firebase';
+import swalert from 'sweetalert2'
 
 class table extends Component {
     constructor(){
@@ -24,7 +25,7 @@ class table extends Component {
     const params = {
       documento: this.documento.value,
       nombre: this.nombre.value,
-      salario: this.salario.value,
+      salario: "$ " +this.salario.value,
       tipoemp: this.tipoemp.value
     };
     
@@ -32,12 +33,33 @@ class table extends Component {
     if (params.documento && params.nombre && params.salario && params.tipoemp) {
       // enviamos nuestro objeto "params" a firebase database
       firebaseConf.database().ref('empleado').push(params).then(() => {
-      }).catch(() => {
-       
-      });
-      // limpiamos nuestro formulario llamando la funcion resetform
-      this.resetForm();
-    } else {
+        swalert.fire({
+            title: 'Empleado registrado',
+            text: 'Empleado registrado exitosamente',
+            icon: 'success',
+            confirmButtonColor: '#f00946',
+            confirmButtonText: 'Aceptar'
+        })
+    }).catch(() => {
+        swalert.fire({
+            title: 'Error',
+            text: 'Los datos no se lograron guardar',
+            icon: 'error',
+            confirmButtonColor: '#f00946',
+            confirmButtonText: 'Aceptar'
+        })
+    });
+
+// limpiamos nuestro formulario llamando la funcion resetform
+this.resetForm();
+} else {
+swalert.fire({
+    title: 'Error',
+    text: 'Por favor ingrese todos los datos',
+    icon: 'warning',
+    confirmButtonColor: '#f00946',
+    confirmButtonText: 'Aceptar'
+})
     };
   }
 
@@ -70,6 +92,7 @@ class table extends Component {
                                             <option selected="">Choose...</option>
                                             <option>Pastelero</option>
                                             <option>Decorador</option>
+                                            <option>Domiciliario</option>
     
                                         </select>
                                     </div>

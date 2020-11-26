@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../../Registro.css';
 import { Button } from '../../Button';
 import firebaseConf from '../../../Firebase';
+import swalert from 'sweetalert2'
 
 class table extends Component {
     constructor(){
@@ -27,7 +28,11 @@ class table extends Component {
   sendMessage(e) {
     // Detiene la acción predeterminada del elemento
     e.preventDefault();
-    
+    if (this.domicilio.checked) {
+        this.domicilio.value="✔"
+    } else {
+        this.domicilio.value="✘"
+    }
     // Creamos un objeto con los valores obtenidos de los inputs
     const params = {
       codOrden: this.codOrden.value,
@@ -37,19 +42,42 @@ class table extends Component {
       fechasolicitud: this.getCurrentDate(),
       fechaentrega: this.fechaentrega.value,
       codCl:this.codCl.value,
-      codEmp:this.codEmp.value
+      codEmp:this.codEmp.value,
+      domicilio:this.domicilio.value,
+      especif:this.especif.value
     };
     
     // Validamos que no se encuentren vacios los principales elementos de nuestro formulario
     if (params.codOrden && params.nombre && params.tipopastel && params.fechaentrega && params.codCl && params.codEmp) {
         // enviamos nuestro objeto "params" a firebase database
         firebaseConf.database().ref('pedido').push(params).then(() => {
+            swalert.fire({
+                title: 'Pedido registrado',
+                text: 'Orden registrada exitosamente',
+                icon: 'success',
+                confirmButtonColor: '#f00946',
+                confirmButtonText: 'Aceptar'
+            })
         }).catch(() => {
-     
+            swalert.fire({
+                title: 'Error',
+                text: 'Los datos no se lograron guardar',
+                icon: 'error',
+                confirmButtonColor: '#f00946',
+                confirmButtonText: 'Aceptar'
+            })
         });
-      // limpiamos nuestro formulario llamando la funcion resetform
-      this.resetForm();
-    } else {
+  
+  // limpiamos nuestro formulario llamando la funcion resetform
+  this.resetForm();
+} else {
+    swalert.fire({
+        title: 'Error',
+        text: 'Por favor ingrese todos los datos',
+        icon: 'warning',
+        confirmButtonColor: '#f00946',
+        confirmButtonText: 'Aceptar'
+    })
     };
   }
     render(){
@@ -81,6 +109,11 @@ class table extends Component {
                                             <option selected="">Choose...</option>
                                             <option>Cumpleaños</option>
                                             <option>Matrimonio</option>
+                                            <option>Bautizo</option>
+                                            <option>Despedida de soltera</option>
+                                            <option>Despedida de soltero</option>
+                                            <option>Primera comunión</option>
+                                            <option>Otro</option>
     
                                         </select>
                                     </div>
@@ -105,10 +138,22 @@ class table extends Component {
                                         <label for="inputEmail4">Codigo del empleado</label>
                                         <input type="number" class="form-control" id="codEmp" ref={codEmp => this.codEmp = codEmp} />
                                     </div>
-                                        <Button type="submit" buttonSize='btn--wide' buttonColor='blue'>
+                                </div>
+                                <div className='form-row'>
+                                    <div class="form-group col-md-6">
+                                        <input
+                                        name="domicilio"
+                                        type="checkbox"
+                                        id="domicilio" ref={domicilio => this.domicilio = domicilio}
+                                        />
+                                        <label>
+                                            Pedir a domicilio
+                                        </label>
+                                    </div>
+                                </div>
+                                <Button type="submit" buttonSize='btn--wide' buttonColor='blue'>
                                            Registrar
                                         </Button>
-                                </div>
                             </form>
                         </div>
                     </div>

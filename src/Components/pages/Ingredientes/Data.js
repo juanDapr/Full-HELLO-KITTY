@@ -1,7 +1,7 @@
 export const homeObjOne = {
-    lightBg: true,
-    lightText: false,
-    lightTextDesc: false,
+    lightBg: false,
+    lightText: true,
+    lightTextDesc: true,
     topLine: 'Ver ingredientes',
     headline: 'Ingredientes de los pasteles',
     description:

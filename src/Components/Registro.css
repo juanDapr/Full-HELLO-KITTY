@@ -43,6 +43,9 @@ label {
     display: inline-block;
     margin-bottom: .5rem;
 }
+select{
+  margin: 0.2em;
+}
 input {
     text-rendering: auto;
     color: -internal-light-dark(black, white);
@@ -57,7 +60,7 @@ input {
     background-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));
     -webkit-rtl-ordering: logical;
     cursor: text;
-    margin: 0em;
+    margin: 0.2em;
     font: 400 13.3333px Arial;
     padding: 1px 2px;
     border-width: 2px;

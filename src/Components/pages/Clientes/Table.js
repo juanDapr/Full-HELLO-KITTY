@@ -15,13 +15,19 @@ class table extends Component{
         this.getClientes();
     }
     getClientes(){
-       const nameRef = firebaseConf.database().ref("cliente")
-       nameRef.once("value", (snapshot) =>{
-           this.setState({
-               clientes: snapshot.val()
+       const nameRef = firebaseConf.database().ref().child("cliente").once('value', function (snapshot){
+           snapshot.forEach(function (childsnapshot){
+            document.getElementById('tabla').innerHTML += ` <tr>
+            <td>${childsnapshot.val().tipocliente}</td>
+            <td>${childsnapshot.val().tipodoc}</td>
+            <td>${childsnapshot.val().numdoc}</td>
+            <td>${childsnapshot.val().nombre}</td>
+            <td>${childsnapshot.val().direccion}</td>
+            </tr>
+            `
            })
-           console.log(this.state)
        })
+       
     }
     render(){
         return (
@@ -41,18 +47,8 @@ class table extends Component{
                                     <th scope="col">Direccion</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                               {this.state.clientes.map((cliente)=>{
-                                   return(
-                                       <tr>
-                                           <td>{cliente.tipocliente}</td>
-                                           <td>{cliente.tipodoc}</td>
-                                           <td>{cliente.numdoc}</td>
-                                           <td>{cliente.nombre}</td>
-                                           <td>{cliente.direccion}</td>
-                                       </tr>
-                                   )
-                               })}
+                            <tbody id="tabla">
+                               
                             </tbody>
                         </table>
                     </div>

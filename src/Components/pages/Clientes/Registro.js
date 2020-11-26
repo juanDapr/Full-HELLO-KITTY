@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../../Registro.css';
 import { Button } from '../../Button';
 import firebaseConf from '../../../Firebase';
+import swalert from 'sweetalert2'
 
 class table extends Component {
     constructor(){
@@ -33,12 +34,33 @@ class table extends Component {
     if (params.tipocliente && params.tipodoc && params.numdoc && params.nombre && params.direccion) {
       // enviamos nuestro objeto "params" a firebase database
       firebaseConf.database().ref('cliente').push(params).then(() => {
-      }).catch(() => {
-       
-      });
-      // limpiamos nuestro formulario llamando la funcion resetform
-      this.resetForm();
-    } else {
+        swalert.fire({
+            title: 'Cliente registrado',
+            text: 'Cliente registrado exitosamente',
+            icon: 'success',
+            confirmButtonColor: '#f00946',
+            confirmButtonText: 'Aceptar'
+        })
+    }).catch(() => {
+        swalert.fire({
+            title: 'Error',
+            text: 'Los datos no se lograron guardar',
+            icon: 'error',
+            confirmButtonColor: '#f00946',
+            confirmButtonText: 'Aceptar'
+        })
+    });
+
+// limpiamos nuestro formulario llamando la funcion resetform
+this.resetForm();
+} else {
+swalert.fire({
+    title: 'Error',
+    text: 'Por favor ingrese todos los datos',
+    icon: 'warning',
+    confirmButtonColor: '#f00946',
+    confirmButtonText: 'Aceptar'
+})
     };
   }
 

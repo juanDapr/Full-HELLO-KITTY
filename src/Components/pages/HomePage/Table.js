@@ -8,20 +8,22 @@ class table extends Component{
         this.state={
             empleados:[]
         };
-        this.getEmpleados = this.getEmpleados.bind(this)
     }
     componentWillMount(){
-        this.getEmpleados();
+        this.getPedidos();
     }
-    getEmpleados(){
-       const nameRef = firebaseConf.database().ref("empleado")
-       nameRef.once("value", (snapshot) =>{
-           this.setState({
-               empleados: snapshot.val()
+    getPedidos(){
+       const nameRef = firebaseConf.database().ref().child("empleado").once('value', function (snapshot){
+           snapshot.forEach(function (childsnapshot){
+            document.getElementById('tabla').innerHTML += ` <tr>
+            <td>${childsnapshot.val().documento}</td>
+            <td>${childsnapshot.val().nombre}</td>
+            <td>${childsnapshot.val().salario}</td>
+            <td>${childsnapshot.val().tipoemp}</td>
+            </tr>`
            })
-           console.log(this.state)
        })
-    }
+    }  
     render(){
         return (
             <>
@@ -38,7 +40,7 @@ class table extends Component{
                                     <th scope="col">Cargo</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tabla">
                                
                             </tbody>
                         </table>

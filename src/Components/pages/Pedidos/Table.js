@@ -1,7 +1,36 @@
 import React, { Component } from 'react';
 import '../../Table.css';
+import firebaseConf from '../../../Firebase';
+import { Button } from '../../Button';
 
 class table extends Component {
+    constructor(){
+        super();
+        this.state={
+            pedidos:[]
+        };
+    }
+    componentWillMount(){
+        this.getPedidos();
+    }
+    getPedidos(){
+       const nameRef = firebaseConf.database().ref().child("pedido").once('value', function (snapshot){
+           snapshot.forEach(function (childsnapshot){
+            document.getElementById('tabla').innerHTML += ` <tr>
+            <td>${childsnapshot.val().codOrden}</td>
+            <td>${childsnapshot.val().nombre}</td>
+            <td>${childsnapshot.val().peso}</td>
+            <td>${childsnapshot.val().tipopastel}</td>
+            <td>${childsnapshot.val().fechasolicitud}</td>
+            <td>${childsnapshot.val().fechaentrega}</td>
+            <td>${childsnapshot.val().especif}</td>
+            <td>${childsnapshot.val().codCl}</td>
+            <td>${childsnapshot.val().codEmp}</td>
+            <td>${childsnapshot.val().domicilio}</td>
+            </tr>`
+           })
+       })  
+    }
     render(){
         return (
             <>
@@ -21,9 +50,10 @@ class table extends Component {
                                     <th scope="col">Especificaciones</th>
                                     <th scope="col">Codigo cliente</th>
                                     <th scope="col">Codigo empleado</th>
+                                    <th scope="col">Domicilio</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tabla">
                                 
                             </tbody>
                         </table>
